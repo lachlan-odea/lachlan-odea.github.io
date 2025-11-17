@@ -53,12 +53,15 @@
       smoothThreshold="5"
     >
       <!--<a-entity geometry="primitive: plane" material="src: #arVideo; shader: flat; side: double; transparent: false;" rotation="-90 0 0" scale="500 700 700" position="250 0 -400"></a-entity>-->
-      <a-plane 
-                rotation="-90 0 0" 
-                width="5" 
-                height="7" 
-                material="src: #arVideo; shader: flat; side: double; transparent: false;" position="250 0 -400">
-       </a-plane>
+     <video 
+                id="arVideo" 
+                src="./yoshimaru.mp4" 
+                loop="true" 
+                autoplay="true" 
+                playsinline="true" 
+                crossorigin="anonymous"
+                preload="auto">
+            </video>
       
     </a-nft>
     <a-entity camera></a-entity>
