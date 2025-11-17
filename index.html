@@ -1,72 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Yoshimaru</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Image based tracking AR.js demo</title>
+    <!-- import aframe and then ar.js with image tracking / location based features -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> 
-    
+    <!-- style for the loader -->
     <style>
-        body { margin: 0; overflow: hidden; }
-        .arjs-loader {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 99;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.9);
-            color: white;
-            font-family: sans-serif;
-        }
+      .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .arjs-loader div {
+        text-align: center;
+        font-size: 1.25em;
+        color: white;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body style="margin : 0px; overflow: hidden;">
+    <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
     <div class="arjs-loader">
-        <div>Scanning for NFT image... please wait and point your camera at the artwork.</div>
+      <div>Loading, please wait...</div>
     </div>
-    
-    <a-scene 
-        embedded 
-        arjs='sourceType: webcam; trackingMethod: best; debugUIEnabled: false;'>
-        
-        <a-assets>
-            <video 
-                id="arVideo" 
-                src="yoshimaru.mp4" 
-                loop="true" 
-                autoplay="true" 
-                playsinline="true" 
-                crossorigin="anonymous"
-                preload="auto">
-            </video>
-        </a-assets>
 
-        <a-nft 
-            type='nft' 
-            url='yoshimaru/Yoshimaru' 
-            smooth="true" 
-            smooth-count="10" 
-            smooth-tolerance=".01" 
-            smooth-threshold="5">
-
-            <a-plane 
-                rotation="-90 0 0" 
-                width="2" 
-                height="2" 
-                material="src: #arVideo; shader: flat; side: double; transparent: false;">
-            </a-plane>
-
-        </a-nft>
-
-        <a-entity camera></a-entity>
+    <!-- a-frame scene -->
+    <a-scene
+      vr-mode-ui="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+      <!-- a-nft is the anchor that defines an Image Tracking entity -->
+      <!-- on 'url' use the path to the Image Descriptors created before. -->
+      <!-- the path should end with the name without the extension e.g. if file is trex.fset' the path should end with trex -->
+      <a-nft
+        type="nft"
+        url="yoshimaru/Yoshimaru"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5">
+          <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
+          <a-entity
+          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+              scale="5 5 5"
+              position="100 100 0"
+          >
+          </a-entity>
+      </a-nft>
+      <!-- static camera that moves according to the device movemenents -->
+      <a-entity camera></a-entity>
     </a-scene>
-</body>
+  </body>
 </html>
