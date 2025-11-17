@@ -33,6 +33,17 @@
     embedded
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
+    <a-assets>
+            <video 
+                id="arVideo" 
+                src="yoshimaru.mp4" 
+                loop="true" 
+                autoplay="true" 
+                playsinline="true" 
+                crossorigin="anonymous"
+                preload="auto">
+            </video>
+        </a-assets>
     <a-nft
       type="nft"
       url="yoshimaru/Yoshimaru"
@@ -41,7 +52,12 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
-      <video id="my-video" src="yoshimaru.mp4" autoplay loop="true"></video>
+      <a-plane 
+                rotation="-90 0 0" 
+                width="2" 
+                height="2" 
+                material="src: #arVideo; shader: flat; side: double; transparent: false;">
+            </a-plane>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
