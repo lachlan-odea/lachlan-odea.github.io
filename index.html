@@ -27,6 +27,26 @@
   <div class="arjs-loader">
     <div>Muted</div>
   </div>
+
+  <script>
+AFRAME.registerComponent('video-handler', {
+    init: function () {
+        this.video = document.querySelector('#arVideo');
+        this.video.pause(); // Ensure it starts paused
+
+        this.el.sceneEl.addEventListener('markerFound', () => {
+            // When the marker is found, tell the video to play
+            this.video.play().catch(e => console.error("Video play error on marker found:", e));
+        });
+
+        this.el.sceneEl.addEventListener('markerLost', () => {
+            // When the marker is lost, pause the video
+            this.video.pause();
+        });
+    }
+});
+</script>
+  
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true;"
@@ -52,6 +72,7 @@
       smoothCount="10"
       smoothTolerance=".01"
       smoothThreshold="5"
+      video-handler
     >
     <a-entity geometry="primitive: plane" material="src: #arVideo; shader: flat; side: double; transparent: false;" rotation="-90 0 0" scale="500 700 700" position="250 0 -400"></a-entity>
 
