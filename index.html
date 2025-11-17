@@ -54,7 +54,8 @@
         smoothTolerance=".01"
         smoothThreshold="5">
           <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-          <a-box position="-1 0.5 -3" rotation="0 45 0" color="#FFFFFF"></a-box>
+          <a-entity geometry="primitive: box; depth: 0.5; height: 0.5; width: 0.5"
+          material="color: #FFFFFF; shader: standard"></a-entity>
       </a-nft>
       <!-- static camera that moves according to the device movemenents -->
       <a-entity camera></a-entity>
